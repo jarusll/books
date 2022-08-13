@@ -149,7 +149,8 @@ function App() {
   return (
     <div className='container'>
       <div className='searchContainer'>
-        <input type="text" className='search' onChange={e => setSearch(e.target.value)}/>
+        <input type="text" className='search' onChange={e => setSearch(e.target.value)}
+        placeholder="Search..."/>
       </div>
       <div className="inputForm">
         {/* {JSON.stringify(getValues())} */}
@@ -167,7 +168,7 @@ function App() {
             <div>
               <label>Title</label>
             </div>
-            <input {...register("title", { required: true })} />
+            <input {...register("title", { required: true })} placeholder='Title'/>
             {errors.title && <div className='error'>Title is required</div>}
           </div>
 
@@ -175,7 +176,7 @@ function App() {
             <div>
               <label>ISBN</label>
             </div>
-            <input {...register("isbn", { required: true })} />
+            <input {...register("isbn", { required: true })} placeholder='xxxx-xxxx-xxxx'/>
             {errors.isbn && <div className='error'>ISBN is required</div>}
           </div>
 
@@ -183,7 +184,7 @@ function App() {
             <div>
               <label>Authors</label>
             </div>
-            <input {...register("authors", { required: true })} placeholder="Seperate by ,"/>
+            <input {...register("authors", { required: true })} placeholder="email, ..."/>
             {errors.authors && <div className='error'>Author/s is required</div>}
           </div>
 
