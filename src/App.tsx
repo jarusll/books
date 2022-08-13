@@ -25,6 +25,8 @@ function bookReducer(state: Book[], action: BookAction){
   switch(action.type){
     case "FETCH":
       return action.payload
+    case "ADD":
+      return [...state, action.payload[0]]
     default:
       return state
   }
@@ -34,6 +36,8 @@ function magazineReducer(state: Magazine[], action: MagazineAction){
   switch(action.type){
     case "FETCH":
       return action.payload
+    case "ADD":
+      return [...state, action.payload[0]]
     default:
       return state
   }
@@ -45,8 +49,32 @@ function App() {
   const [book, bookDispatch] = useReducer(bookReducer, [])
   const [search, setSearch] = useState("")
 
-  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm({
+    defaultValues: {
+      type: "book",
+      title: "",
+      isbn: "",
+      authors: ""
+    }
+  });
+  const onSubmit = (data: any) => {
+    const { type, title, isbn, authors } = data
+    if (type === "book") {
+      bookDispatch({
+        type: "ADD", payload:
+          [{
+            title, isbn, authors, description: ""
+          }]
+      })
+    } else {
+      magazineDispatch({
+        type: "ADD", payload:
+          [{
+            title, isbn, authors, publishedAt: ""
+          }]
+      })
+    }
+  }
 
   const searchKeys = ["title", "isbn", "authors"]
 
