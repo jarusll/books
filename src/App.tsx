@@ -10,6 +10,7 @@ import MagazineAction from './types/MagazineAction';
 import AuthorAction from './types/AuthorAction';
 import csvToJson from './functions/csvToJson';
 import fuzzysearch from 'fuzzysearch-ts';
+import { useForm } from 'react-hook-form';
 
 function authorReducer(state: Author[], action: AuthorAction){
   switch(action.type){
@@ -43,11 +44,24 @@ function App() {
   const [magazine, magazineDispatch] = useReducer(magazineReducer, [])
   const [book, bookDispatch] = useReducer(bookReducer, [])
   const [search, setSearch] = useState("")
+
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
   const searchKeys = ["title", "isbn", "authors"]
 
+  /**
+   * Fuzzy finds from needle to every key in `searchKeys`
+   * @param needle string
+   * @param haystack Array<Book | Magazine>
+   * @returns
+   */
   function searchBooks(needle: string, haystack: Array<any>){
     return haystack.filter(item => {
-      const anyPresent = searchKeys.map(key => fuzzysearch(needle.toLowerCase(), item[key].toLowerCase()))
+      const anyPresent = searchKeys
+      // search every key
+      .map(key => fuzzysearch(needle.toLowerCase(), item[key].toLowerCase()))
+      // boolean or all of them
       .reduce((a: boolean, b: boolean) => a || b)
       return anyPresent
     })
@@ -106,6 +120,45 @@ function App() {
     <div className='container'>
       <div className='searchContainer'>
         <input type="text" className='search' onChange={e => setSearch(e.target.value)}/>
+      </div>
+      <div className="inputForm">
+        {/* {JSON.stringify(getValues())} */}
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <div className='formItem'>
+            <div>
+              <label>Book</label>
+              <input {...register("type", { required: true })} type="radio" value="book"/>
+
+              <label>Magazine</label>
+              <input {...register("type", { required: true })} type="radio" value="magazine"/>
+            </div>
+          </div>
+          <div className='formItem'>
+            <div>
+              <label>Title</label>
+            </div>
+            <input {...register("title", { required: true })} />
+            {errors.title && <div className='error'>Title is required</div>}
+          </div>
+
+          <div className='formItem'>
+            <div>
+              <label>ISBN</label>
+            </div>
+            <input {...register("isbn", { required: true })} />
+            {errors.isbn && <div className='error'>ISBN is required</div>}
+          </div>
+
+          <div className='formItem'>
+            <div>
+              <label>Authors</label>
+            </div>
+            <input {...register("authors", { required: true })} placeholder="Seperate by ,"/>
+            {errors.authors && <div className='error'>Author/s is required</div>}
+          </div>
+
+          <input type="submit" />
+        </form>
       </div>
       <div className='tableContainer'>
         {

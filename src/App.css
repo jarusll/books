@@ -21,3 +21,20 @@
     margin-bottom: 0.5rem;
     width: 50%;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    margin: auto;
+}
+
+.formItem {
+    margin-bottom: 0.2rem;
+}
+
+.error {
+    color: red;
+}
