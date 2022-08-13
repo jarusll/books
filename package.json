@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "csv-to-js-parser": "^2.3.4",
+    "fuzzysearch-ts": "^1.0.3",
     "react": "^18.2.0",
     "react-data-table-component": "^7.5.2",
     "react-dom": "^18.2.0",
