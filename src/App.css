@@ -1,0 +1,21 @@
+.container {
+    width: 90%;
+    border: 1px solid gray;
+    border-radius: 5;
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.searchContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.search {
+    height: 1.5rem;
+    margin: auto;
+    width: 50%;
+}
