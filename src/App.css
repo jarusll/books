@@ -1,5 +1,5 @@
 .container {
-    width: 90%;
+    width: 95%;
     border: 1px solid gray;
     border-radius: 0.1rem;
     margin: auto;
@@ -27,8 +27,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
+    width: 30%;
     margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid black;
+    border-radius: 0.1rem;
+    padding: 1rem;
+}
+
+@media only screen and (max-width: 400px) {
+    .form {
+        width: 100%
+    }
 }
 
 .formItem {
@@ -37,4 +48,18 @@
 
 .error {
     color: red;
+}
+
+.download {
+    display: flex;
+    justify-content: center;
+}
+
+.downloadButton {
+    border: none;
+    background-color: rgb(0, 112, 209);
+    padding: 1rem 1.2rem;
+    color: white;
+    border-radius: 0.2rem;
+    font-size: 1.2rem;
 }

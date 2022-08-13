@@ -11,6 +11,7 @@ import AuthorAction from './types/AuthorAction';
 import csvToJson from './functions/csvToJson';
 import fuzzysearch from 'fuzzysearch-ts';
 import { useForm } from 'react-hook-form';
+import csvDownload from 'json-to-csv-export'
 
 function authorReducer(state: Author[], action: AuthorAction){
   switch(action.type){
@@ -49,7 +50,7 @@ function App() {
   const [book, bookDispatch] = useReducer(bookReducer, [])
   const [search, setSearch] = useState("")
 
-  const { register, handleSubmit, formState: { errors }, getValues } = useForm({
+  const { register, handleSubmit, formState: { errors }, getValues, reset } = useForm({
     defaultValues: {
       type: "book",
       title: "",
@@ -74,6 +75,7 @@ function App() {
           }]
       })
     }
+    reset()
   }
 
   const searchKeys = ["title", "isbn", "authors"]
@@ -185,8 +187,15 @@ function App() {
             {errors.authors && <div className='error'>Author/s is required</div>}
           </div>
 
-          <input type="submit" />
+          <input type="submit" value="ADD"/>
         </form>
+      </div>
+      <div className="download">
+        <button onClick={() => {
+          csvDownload(author, "authors.csv", ";")
+          csvDownload(book, "books.csv", ";")
+          csvDownload(magazine, "magazines.csv", ";")
+        }} className="downloadButton">Download</button>
       </div>
       <div className='tableContainer'>
         {
