@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import DataTable from 'react-data-table-component';
 import { fetch } from './functions/fetch';
 import './App.css';
@@ -96,7 +96,9 @@ function App() {
       <div className='searchContainer'>
         <input type="text" className='search' />
       </div>
-      {(book || magazine) && <DataTable columns={columns} data={(book as Array<any>).concat(magazine as Array<any>)} dense highlightOnHover pointerOnHover />}
+      <div className='tableContainer'>
+        <DataTable columns={columns} data={(book as Array<any>).concat(magazine as Array<any>)} dense highlightOnHover pointerOnHover />
+      </div>
     </div>
   );
 }
